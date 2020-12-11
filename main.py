@@ -1,6 +1,5 @@
 import sys
 from calcule import *
-from zero_deg import *
 
 
 def solution_z(x):
@@ -17,7 +16,7 @@ def solution_p(x, des):
 
 
 def solution_n(x, des):
-    r = square_root(des)
+    r = square_root(abs(des))
     a = -x[1]
     b = x[2]
     print("({} - i {}) / (2 * {})".format(a, r, b))
@@ -45,24 +44,35 @@ def ft_print_reduc(x):
     i = 0
     print("Reduced form: ", end="")
     for cle, val in x.items():
-        i += 1
-        print("{} * X^{} ".format(val, cle), end="")
-        if i < len(x):
-            if int(val) >0:
-                print("+ ", end="")
-            else:
-                print("- ", end="")
+        if val < 0:
+            print("- {} * X^{} ".format(abs(val), cle), end="")
+        elif val >= 0 and i != 0:
+            print("+ {} * X^{} ".format(abs(val), cle), end="")
         else:
-            print("= 0")
+            print("{} * X^{} ".format(abs(val), cle), end="")
+        i += 1
+    print("= 0")
 
 
 def ft_reduct(x1, x2):
+    for c1, c2, v1, v2 in zip(x1.items(), x2.items()):
+        print(c1)
+
     for cle, valeur in x2.items():
         x2[cle] *= -1
     for c1, v1 in x1.items():
         for c2, v2 in x2.items():
             if c1 == c2:
                 x1[c1] = round(x1[c1] + x2[c2], 3)
+            else:
+                x1[c2] = v2
+    for i in x1.keys():
+        if i < 0:
+            print(x1.keys())
+            print("pas possible de resoudre ca !!")
+            exit()
+        elif i > 2:
+            print("plus que 3")
     if all(x1.values()):
         return x1
     else:

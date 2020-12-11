@@ -1,4 +1,4 @@
-def square_root(number: float) -> float:
+def square_root(number: float):
     if not number:
         return 0
 
@@ -8,7 +8,7 @@ def square_root(number: float) -> float:
         n = number / g
         g2 = g
         g = (g + n) / 2
-    return g
+    return round(g, 6)
 
 
 def descriminant(x):
